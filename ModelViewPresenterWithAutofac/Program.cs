@@ -15,17 +15,27 @@ namespace ModelViewPresenterWithAutofac
         [STAThread]
         static void Main()
         {
-            var container = new ContainerBuilder();
-            container.Register<ILoginPresenter>(c => new LoginPresenter(c.Resolve<ILoginView>()));
-            container.Register<ILoginView>(c => new LoginView(c.Resolve<ILoginPresenter>));
-            StartApplication();
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+
+            // Register stuff
+            var containerBuilder = new ContainerBuilder();
+            containerBuilder.Register<ILoginPresenter>(c => new LoginPresenter(c.Resolve<ILoginView>()));
+            containerBuilder.Register<ILoginView>(c => new LoginView(c.Resolve<ILoginPresenter>));
+
+            // start app
+            var container = containerBuilder.Build();
+            var presenter = container.Resolve<ILoginPresenter>();
+
+
+            // Has to be called after the Visual styles etc calls
+            presenter.ShowForm();
+
+            Application.Run();
         }
 
         private static void StartApplication()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run();
         }
     }
 }

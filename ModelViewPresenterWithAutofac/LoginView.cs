@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace ModelViewPresenterWithAutofac
 {
-    public partial class LoginView : Form, ILoginView
+    internal partial class LoginView : Form, ILoginView
     {
         private Func<ILoginPresenter> _loginPresenterFactory;
 
@@ -33,20 +33,28 @@ namespace ModelViewPresenterWithAutofac
             get { throw new NotImplementedException(); }
         }
 
-        public void Login(LoginModel login)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Cancel()
-        {
-            throw new NotImplementedException();
-        }
-
         public void ShowView()
         {
             this.Show();
         }
 
+
+        public event Action<string, string> Login;
+
+        public new event Action CloseForm;
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (Login != null)
+            {
+                Login("admin", "password");
+            }
+        }
+
+
+        public void SetTitle(string title)
+        {
+            this.Text = title;
+        }
     }
 }

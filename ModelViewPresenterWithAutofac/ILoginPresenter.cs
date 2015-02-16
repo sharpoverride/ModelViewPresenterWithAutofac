@@ -8,6 +8,6 @@ namespace ModelViewPresenterWithAutofac
 {
     interface ILoginPresenter
     {
-        void Show();
+        void ShowForm();
     }
 }

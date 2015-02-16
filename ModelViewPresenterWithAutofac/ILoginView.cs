@@ -11,10 +11,11 @@ namespace ModelViewPresenterWithAutofac
          string User { get; }
          string Password { get; }
 
-         void Login(LoginModel login);
-         void Cancel();
-
          void ShowView();
-         void Close();
+
+         event Action<string, string> Login;
+         event Action CloseForm;
+
+         void SetTitle(string title);
     }
 }
